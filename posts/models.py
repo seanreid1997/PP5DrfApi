@@ -7,6 +7,12 @@ class Posts(models.Model):
     Post model, related to 'owner', i.e. a User instance.
     Default image set so that we can always reference image.url.
     """
+    image_filter_choices = [
+        ('_1977', '1977'),
+        ('brannan', 'Brannan'),
+        ('earlybird', 'Earlybird'),
+       
+    ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -14,6 +20,9 @@ class Posts(models.Model):
     content = models.TextField(blank=True)
     image = models.ImageField(
         upload_to='images/', default='../cld-sample-2.jpg', blank=True
+    )
+    image_filter = models.CharField(
+        max_length=32, choices=image_filter_choices, default='normal'
     )
 
     class Meta:
